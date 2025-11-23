@@ -81,7 +81,20 @@ const Auth = () => {
 
     setLoading(false);
   };
-
+  
+  const handleLogout = async () => {
+    setLoading(true);
+    const { error } = await supabase.auth.signOut();
+    
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Logged out successfully!");
+      navigate("/auth");
+    }
+    setLoading(false);
+  };
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 to-accent/5 p-4">
       <Card className="w-full max-w-md">
